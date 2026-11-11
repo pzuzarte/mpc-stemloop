@@ -1,0 +1,22 @@
+[package]
+name = "stemloop-mod"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.97"
+license = "MIT"
+description = "MPC Sample mod shell: Stem Split entry -> Task -> Extract 4 stems to pads (Phase 3 skeleton)."
+
+[lib]
+name = "stemloop_mod"
+crate-type = ["cdylib"]
+
+[dependencies]
+mpc-sample-sdk = { git = "https://github.com/ioma8/mpc-sample-sdk", tag = "v0.1.8" }
+mpc-stemloop-engine = { path = "../engine" }
+
+[profile.release]
+panic = "abort"
+opt-level = 3
+lto = "fat"
+codegen-units = 1
+strip = "none"

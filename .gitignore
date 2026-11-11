@@ -1,0 +1,37 @@
+# Python virtualenv
+.venv/
+__pycache__/
+*.pyc
+
+# Exported models (large binaries: onnx weights + DFT kernels, ~GBs)
+models/
+*.onnx
+
+# Generated audio and intermediates
+out/
+test-loops/
+*.wav
+*.npy
+
+# Firmware images + extracted rootfs (large, untrusted, not ours to redistribute)
+firmware-dropbox/
+*.img
+*.rootfs
+
+# Rust build output
+rust/**/target/
+
+# Generated DSP parity fixtures (reproducible: src/gen_dsp_fixtures.py)
+rust/dsp/tests/fixtures/*.bin
+
+# Generated inference-spike fixtures (reproducible: src/gen_infer_ref.py)
+rust/spike/fixtures/*.bin
+
+# Generated engine stems fixtures (reproducible: src/gen_stems_ref.py)
+rust/engine/tests/fixtures/
+
+# Built mod artifacts (reproducible: build-mod.sh --pack)
+rust/stemloop-mod/dist/
+
+# OS cruft
+.DS_Store

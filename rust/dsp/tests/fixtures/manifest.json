@@ -1,0 +1,120 @@
+{
+  "stft_in_x": {
+    "shape": [
+      1,
+      7000
+    ],
+    "dtype": "f32",
+    "path": "stft_in_x.bin"
+  },
+  "stft_out_zr": {
+    "shape": [
+      1,
+      2049,
+      7
+    ],
+    "dtype": "f32",
+    "path": "stft_out_zr.bin"
+  },
+  "stft_out_zi": {
+    "shape": [
+      1,
+      2049,
+      7
+    ],
+    "dtype": "f32",
+    "path": "stft_out_zi.bin"
+  },
+  "istft_in_zr": {
+    "shape": [
+      1,
+      2049,
+      7
+    ],
+    "dtype": "f32",
+    "path": "istft_in_zr.bin"
+  },
+  "istft_in_zi": {
+    "shape": [
+      1,
+      2049,
+      7
+    ],
+    "dtype": "f32",
+    "path": "istft_in_zi.bin"
+  },
+  "istft_out": {
+    "shape": [
+      1,
+      7000
+    ],
+    "dtype": "f32",
+    "path": "istft_out.bin"
+  },
+  "spec_in_mix": {
+    "shape": [
+      1,
+      2,
+      7000
+    ],
+    "dtype": "f32",
+    "path": "spec_in_mix.bin"
+  },
+  "spec_out_zr": {
+    "shape": [
+      1,
+      2,
+      2048,
+      7
+    ],
+    "dtype": "f32",
+    "path": "spec_out_zr.bin"
+  },
+  "spec_out_zi": {
+    "shape": [
+      1,
+      2,
+      2048,
+      7
+    ],
+    "dtype": "f32",
+    "path": "spec_out_zi.bin"
+  },
+  "mag_out": {
+    "shape": [
+      1,
+      4,
+      2048,
+      7
+    ],
+    "dtype": "f32",
+    "path": "mag_out.bin"
+  },
+  "maskispec_in_xspec": {
+    "shape": [
+      1,
+      4,
+      4,
+      2048,
+      7
+    ],
+    "dtype": "f32",
+    "path": "maskispec_in_xspec.bin"
+  },
+  "maskispec_out": {
+    "shape": [
+      1,
+      4,
+      2,
+      7000
+    ],
+    "dtype": "f32",
+    "path": "maskispec_out.bin"
+  },
+  "_params": {
+    "nfft": 4096,
+    "hop": 1024,
+    "l_sig": 7000,
+    "l_mix": 7000
+  }
+}

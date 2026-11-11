@@ -1,0 +1,24 @@
+[package]
+name = "mpc-stemloop-spike"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.97"
+license = "MIT"
+description = "Phase 2 spike: run the net-only ONNX via the ort crate and check parity + RSS."
+
+[[bin]]
+name = "spike"
+path = "src/main.rs"
+
+[dependencies]
+# load-dynamic (not download-binaries) so we choose the exact libonnxruntime at
+# runtime via ORT_DYLIB_PATH -- lets us test against Microsoft's 1.31.1 build.
+ort = { version = "2.0.0-rc.15", default-features = false, features = [
+    "std",
+    "ndarray",
+    "tracing",
+    "load-dynamic",
+    "api-31",
+] }
+libc = "0.2"
+ndarray = "0.17"

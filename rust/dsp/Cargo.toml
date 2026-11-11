@@ -1,0 +1,14 @@
+[package]
+name = "mpc-stemloop-dsp"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.97"
+license = "MIT"
+description = "Host STFT/iSTFT DSP for the MPC Sample stem-split mod, bit-parity with demucs (host_dsp.py)."
+
+[lib]
+name = "mpc_stemloop_dsp"
+crate-type = ["rlib"]
+
+[dependencies]
+rustfft = "6.2.0"

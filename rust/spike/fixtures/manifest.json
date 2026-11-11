@@ -1,0 +1,51 @@
+{
+  "mag": {
+    "shape": [
+      1,
+      4,
+      2048,
+      44
+    ],
+    "dtype": "f32"
+  },
+  "mix": {
+    "shape": [
+      1,
+      2,
+      44100
+    ],
+    "dtype": "f32"
+  },
+  "xspec": {
+    "shape": [
+      1,
+      4,
+      4,
+      2048,
+      44
+    ],
+    "dtype": "f32"
+  },
+  "xt": {
+    "shape": [
+      1,
+      4,
+      2,
+      44100
+    ],
+    "dtype": "f32"
+  },
+  "_meta": {
+    "model": "hdemucs_mmi_1s_net.onnx",
+    "input_names": [
+      "mag",
+      "mix"
+    ],
+    "output_order": [
+      "xspec",
+      "xt"
+    ],
+    "py_ort_net_s": 0.111,
+    "py_ort_peak_mb": 492.0
+  }
+}

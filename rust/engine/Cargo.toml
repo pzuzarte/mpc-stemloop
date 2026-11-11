@@ -1,0 +1,20 @@
+[package]
+name = "mpc-stemloop-engine"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.97"
+license = "MIT"
+description = "Full stem-split pipeline: host STFT (dsp) + ONNX net (ort) + iSTFT -> 4 interleaved stems."
+
+[lib]
+name = "mpc_stemloop_engine"
+
+[dependencies]
+mpc-stemloop-dsp = { path = "../dsp" }
+# load-dynamic: pick libonnxruntime at runtime via ORT_DYLIB_PATH (device ships it).
+ort = { version = "2.0.0-rc.15", default-features = false, features = [
+    "std",
+    "tracing",
+    "load-dynamic",
+    "api-31",
+] }
