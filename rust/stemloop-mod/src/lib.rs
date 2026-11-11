@@ -41,6 +41,8 @@ const WINDOW_SECS: usize = 4;
 const NOTICE_MS: i64 = 4000;
 /// How long (ms) after a split we watch for the chop view, to leave it.
 const CHOP_EXIT_MS: i64 = 4000;
+/// How long (ms) the "StemLoop ready" startup banner stays on screen.
+const STARTUP_MS: i64 = 6000;
 
 /// A short on-screen notice (text, deadline-ms); drawn in `on_paint`.
 static NOTICE: Mutex<(&'static str, i64)> = Mutex::new(("", 0));
@@ -71,13 +73,26 @@ fn trim_heap() {
     }
 }
 
-/// Show a one-shot notice for `NOTICE_MS` and ask for a repaint.
-fn notice(text: &'static str) {
+/// Show a one-shot notice for `ms` and ask for a repaint.
+fn notice_for(text: &'static str, ms: i64) {
     if let Ok(mut n) = NOTICE.lock() {
-        *n = (text, clock::now_ms() + NOTICE_MS);
+        *n = (text, clock::now_ms() + ms);
     }
     draw::show_toast(text);
     draw::repaint_painted();
+}
+
+/// Show a one-shot notice for `NOTICE_MS`.
+fn notice(text: &'static str) {
+    notice_for(text, NOTICE_MS);
+}
+
+/// Whether SampQOL (`mpcqol.so`) is preloaded alongside us. In that combined
+/// setup we stay quiet at startup -- the banner is only for our standalone mod.
+fn combined_with_other() -> bool {
+    std::env::var_os("LD_PRELOAD")
+        .and_then(|v| v.into_string().ok())
+        .is_some_and(|s| s.contains("mpcqol"))
 }
 
 /// Draw the StemLoop banner with a line of text (320x240 screen).
@@ -103,6 +118,8 @@ pub struct StemLoop {
     task: Option<Task<RenderJob>>,
     /// Deadline (ms) until which we replay CHOP once the chop view appears; 0 off.
     exit_chop_until: i64,
+    /// Whether the one-shot "StemLoop ready" startup banner has been shown.
+    startup_shown: bool,
 }
 
 impl StemLoop {
@@ -305,6 +322,14 @@ impl Mod for StemLoop {
     fn on_paint(&mut self, graphics: &mut draw::Graphics, event: PaintEvent) {
         if !event.sample_page {
             return;
+        }
+        // On the first Sample-page paint after loading, confirm the mod is live.
+        // Standalone only -- stay quiet when combined with another mod.
+        if !self.startup_shown {
+            self.startup_shown = true;
+            if !combined_with_other() {
+                notice_for("ready -- SHIFT+DATA to split", STARTUP_MS);
+            }
         }
         // Draw on the UI thread only (no background pump). While a split runs,
         // show the progress banner; otherwise show a recent one-shot notice.
